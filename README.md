@@ -1,3 +1,25 @@
+## tailwind 프레임 워크 설치
+
+테일윈드를 적용하기 위한 의존성을 아래 명령어로 설치해 주세요.
+
+```
+npm install -D tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
+```
+
+## craco 설치 및 설정
+
+cra는 기본적으로 PostCSS 속성을 덮어쓸 수 없도록 설정되어 있는데요, 이를 무시할 수 있게 해주는 craco 라이브러리를 설치합니다.
+
+```
+npm install @craco/craco
+```
+
+## 실행
+
+```
+npm start
+```
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
