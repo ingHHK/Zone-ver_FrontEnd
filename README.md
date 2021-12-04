@@ -12,6 +12,7 @@ cra는 기본적으로 PostCSS 속성을 덮어쓸 수 없도록 설정되어 �
 
 ```
 npm install @craco/craco
+
 ```
 
 ## 실행

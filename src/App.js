@@ -5,6 +5,7 @@ import axios from 'axios';
 import Tr from './Tr';
 import Post from './Post';
 import Modal from './Modal';
+import Scoresend from './Scoresend';
 
 
 const App = () => {
@@ -70,14 +71,12 @@ const App = () => {
   return (
     <section className="text-gray-800 body-font relative">
       <ParticlesBg type="circle" bg={true} />
+      <Scoresend />
       <div className="container px-5 py-24 mx-auto flex">
         <div className="lg:w-1/2 md:w-1/2 bg-white rounded-lg p-8 flex flex-col md:ml-auto md:mr-auto w-full mt-10 md:mt-0 relative z-10 border border-gray-200 shadow-md">
-          <h2 className="text-indigo-600 text-2xl mb-1 font-medium title-font text-center">
+          <h1 className="text-indigo-600 text-2xl mb-1 font-medium title-font text-center">
             Ranking
-          </h2>
-          <p className="leading-relaxed mt-2 mb-5 text-gray-600 text-center">
-            Rank 게시판입니다~
-          </p>
+          </h1>
           <div className="flex-auto flex-shrink-0 space-x-2">
             <input
               className="bg-white rounded border w-3/4 border-gray-400 focus:outline-none focus:border-indigo-500 text-base px-2 py-2 mb-4"
