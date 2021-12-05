@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import Timer from './Time';
 
 
 const Scoresend = () => {
@@ -16,8 +17,43 @@ const Scoresend = () => {
 
     const map = new kakao.maps.Map(container, options);
 
-    if (navigator.geolocation) {
+    ///////////////////////////////
 
+
+    var markerPosition1 = new kakao.maps.LatLng(37.575516529354, 126.97909517414111);
+
+    // 마커를 생성합니다
+    var marker1 = new kakao.maps.Marker({
+      position: markerPosition1
+    });
+
+    // 마커가 지도 위에 표시되도록 설정합니다
+    marker1.setMap(map);
+
+    var locPosition = new kakao.maps.LatLng(37.575516529354, 126.97909517414111), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+      message = '<div style="padding:5px;">* 지정 위치 *</div>'; // 인포윈도우에 표시될 내용입니다
+    displayMarker(locPosition, message);
+
+    var circle = new kakao.maps.Circle({
+      center: new kakao.maps.LatLng(37.575516529354, 126.97909517414111),  // 원의 중심좌표 입니다 
+      radius: 150, // 미터 단위의 원의 반지름입니다 
+      strokeWeight: 2, // 선의 두께입니다 
+      strokeColor: '#75B8FA', // 선의 색깔입니다
+      strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+      strokeStyle: 'dashed', // 선의 스타일 입니다
+      fillColor: '#F78181', // 채우기 색깔입니다
+      fillOpacity: 0.5  // 채우기 불투명도 입니다  
+    });
+
+    // 지도에 원을 표시합니다 
+    circle.setMap(map);
+
+    //////////////////////////////////////
+
+
+
+
+    if (navigator.geolocation) {
       // GeoLocation을 이용해서 접속 위치를 얻어옵니다
       navigator.geolocation.getCurrentPosition(function (position) {
 
@@ -25,7 +61,7 @@ const Scoresend = () => {
           lon = position.coords.longitude; // 경도
 
         var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-          message = '<div style="padding:5px;">여기에 계신가요?!</div>'; // 인포윈도우에 표시될 내용입니다
+          message = '<div style="padding:5px;">* 현재 위치 *</div>'; // 인포윈도우에 표시될 내용입니다
 
         // 마커와 인포윈도우를 표시합니다
         displayMarker(locPosition, message);
@@ -43,7 +79,15 @@ const Scoresend = () => {
 
         // 지도에 원을 표시합니다 
         circle.setMap(map);
+        // 0.0008 = 반지름 150설정한 값이랑 같음
+        var score
 
+        if (Math.abs(37.575516529354 - lat) > 0.0008) {
+          score += 10
+        }
+        else {
+          score += 20
+        }
 
       });
 
@@ -79,9 +123,8 @@ const Scoresend = () => {
       map.setCenter(locPosition);
     }
 
+
   }, []);
-
-
 
   return (
     <>
@@ -96,7 +139,9 @@ const Scoresend = () => {
             height: '500px', display: 'block', marginRight: 'auto', marginLeft: 'auto',
           }}></div>
 
-          <button className="text-white bg-indigo-500 border-0 w-5/12 mt-5 mr-auto ml-auto py-2 px-20 focus:outline-none hover:bg-indigo-600 rounded text-base" >
+          <Timer />
+
+          <button className="text-white bg-indigo-500 border-0 w-5/12 mt-5 mr-auto ml-auto py-2 px-20 focus:outline-none hover:bg-indigo-600 rounded text-base">
             내 위치 확인하기
           </button>
 

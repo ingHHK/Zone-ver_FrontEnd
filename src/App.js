@@ -1,71 +1,22 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import ParticlesBg from 'particles-bg';
 import './App.css';
 import axios from 'axios';
 import Tr from './Tr';
-import Post from './Post';
-import Modal from './Modal';
 import Scoresend from './Scoresend';
 
 
 const App = () => {
   const [title, setTitle] = useState('');
-  const [info, setInfo] = useState([]);
-  const [selected] = useState('');
-  const [modalOn, setModalOn] = useState(false);
+  const [info] = useState('');
 
-  // 고유 값으로 사용 될 id
-  // ref 를 사용하여 변수 담기
-  const nextId = useRef(11);
-
-  //더미 데이터 호출
   useEffect(() => {
-    axios.get('https://jsonplaceholder.typicode.com/users')
-      .then(res => setInfo(res.data))
-      .catch(err => console.log(err));
+
+    const apiUrl = '../data.json';
+
+    axios.get(apiUrl).then(data => { this.setState({ info: data.data.data }); }).catch(error => { console.log(error); });
+
   }, []);
-
-  const handleSave = (data) => {
-    //데이터 수정하기
-    if (data.id) { //수정 데이터에는 id가 존재
-      setInfo(
-        info.map(row => data.id === row.id ? {
-          id: data.id,
-          name: data.name,
-        } : row))
-
-    } else { //바로 추가하기
-      // 데이터 추가하기 방법1
-      // setInfo((prev) => {
-      //   return [ ...prev, {
-      //     id: nextId.current,
-      //     name: data.name,
-      //     email: data.email,
-      //     phone: data.phone,
-      //     website: data.website
-      //   }]
-      // });
-
-      //데이터 추가하기 방법2
-      setInfo(info => info.concat(
-        {
-          id: nextId.current,
-          name: data.name,
-        }
-      ))
-      nextId.current += 1;
-    }
-  }
-
-  const handleCancel = () => {
-    setModalOn(false);
-  }
-
-  const handleEditSubmit = (item) => {
-    console.log(item);
-    handleSave(item);
-    setModalOn(false);
-  }
 
 
   return (
@@ -107,10 +58,8 @@ const App = () => {
 
               </thead>
               <Tr info={info} />
+
             </table>
-            <Post onSaveData={handleSave} />
-            {modalOn && <Modal selectedData={selected} handleCancel={handleCancel}
-              handleEditSubmit={handleEditSubmit} />}
           </div>
 
           <a

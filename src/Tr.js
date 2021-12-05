@@ -6,11 +6,8 @@ const Tr = ({ info }) => {
   return (
     <tbody >
       {
-        info.map(item => {
-          return (
-            <Td key={item.id} item={item} />
-          )
-        })
+
+        <Td key={info.id} item={info} />
       }
     </tbody>
   );
