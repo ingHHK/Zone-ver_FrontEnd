@@ -6,6 +6,19 @@ import Tr from './Tr';
 import Post from './Post';
 import Modal from './Modal';
 
+//DB에 있는 Data를 모두 Pull
+function Pull_Data() {
+  const [data, setData] = useState('');
+
+  useEffect(() => {
+    (async function () {
+      const { text } = await( await fetch(`/api/Pull-HttpTrigger`)).json();
+      setData(text);
+    })();
+  });
+
+  return <div>{data}</div>;
+}
 
 const App = () => {
   const [title, setTitle] = useState('');
@@ -109,7 +122,7 @@ const App = () => {
               </thead>
               <Tr info={info} />
             </table>
-            <Post onSaveData={handleSave} />
+            <Post onSaveData={handleSave}/>
             {modalOn && <Modal selectedData={selected} handleCancel={handleCancel}
               handleEditSubmit={handleEditSubmit} />}
           </div>
@@ -129,5 +142,6 @@ const App = () => {
     </section>
   );
 };
+
 
 export default App;
