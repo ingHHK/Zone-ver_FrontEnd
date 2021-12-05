@@ -7,18 +7,18 @@ import Post from './Post';
 import Modal from './Modal';
 
 //DB에 있는 Data를 모두 Pull
-function Pull_Data() {
-  const [data, setData] = useState('');
+// function Pull_Data() {
+//   const [data, setData] = useState('');
 
-  useEffect(() => {
-    (async function () {
-      const { text } = await( await fetch(`/api/Pull-HttpTrigger`)).json();
-      setData(text);
-    })();
-  });
+//   useEffect(() => {
+//     (async function () {
+//       const { text } = await( await fetch(`/api/Pull-HttpTrigger`)).json();
+//       setData(text);
+//     })();
+//   });
 
-  return <div>{data}</div>;
-}
+//   return <div>{data}</div>;
+// }
 
 const App = () => {
   const [title, setTitle] = useState('');
